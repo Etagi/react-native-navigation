@@ -205,15 +205,26 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
             return;
         }
         if ((currentActivity == null && numberOfActivities < 2) || (currentActivity != null && currentActivity.isFinishing())) {
-        getReactGateway().onDestroyApp(this);
+            getReactGateway().onDestroyApp(this);
         }
     }
 
     @Override
     public void invokeDefaultOnBackPressed() {
-        if (layout != null && !layout.onBackPressed()) {
-            super.onBackPressed();
+        if (layout == null) {
+            if (!NavigationApplication.instance.clearHostOnActivityDestroy(currentActivity)) {
+                this.moveTaskToBack(true);
+            }
+            return;
         }
+        if (layout.onBackPressed()) {
+            return;
+        }
+        if (!NavigationApplication.instance.clearHostOnActivityDestroy(currentActivity)) {
+            this.moveTaskToBack(true);
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
