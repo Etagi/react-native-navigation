@@ -25,9 +25,9 @@ import com.reactnativenavigation.utils.CompatUtils;
 
 public abstract class SplashActivity extends AppCompatActivity {
     public static boolean isResumed = false;
-
-    private static final String MY_SETTINGS = "my_settings";
-    SharedPreferences mSettings;
+    public static SharedPreferences mSettings;
+    public static final String MY_SETTINGS = "my_settings";
+    
 
     public static void start(Activity activity) {
         Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
@@ -43,12 +43,10 @@ public abstract class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mSettings = getSharedPreferences(MY_SETTINGS, Context.MODE_PRIVATE);
-
         LaunchArgs.instance.set(getIntent());
         setSplashLayout();
         IntentDataHandler.saveIntentData(getIntent());
+        mSettings = getSharedPreferences(MY_SETTINGS, Context.MODE_PRIVATE);
     }
 
     public static boolean shouldAskPermission() {
