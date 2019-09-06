@@ -511,7 +511,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     public String getCurrentlyVisibleEventId() {
-        return modalController.isShowing() ? modalController.getCurrentlyVisibleEventId() : layout.getCurrentScreen().getNavigatorEventId();
+        return (modalController.isShowing() && modalController != null) ? modalController.getCurrentlyVisibleEventId() : layout.getCurrentScreen().getNavigatorEventId();
     }
 
     public static void setStartAppPromise(Promise promise) {
