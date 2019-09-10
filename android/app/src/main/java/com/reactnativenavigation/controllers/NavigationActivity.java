@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Window;
 
@@ -263,6 +263,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     void push(ScreenParams params, Promise onPushComplete) {
+        if (params == null) {
+            return;
+        }
         if (modalController.containsNavigator(params.getNavigatorId())) {
             modalController.push(params, onPushComplete);
         } else {
@@ -271,6 +274,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     void pop(ScreenParams params) {
+        if (params == null) {
+            return;
+        }
         if (modalController.containsNavigator(params.getNavigatorId())) {
             modalController.pop(params);
         } else {
@@ -279,6 +285,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     void popToRoot(ScreenParams params) {
+        if (params == null) {
+            return;
+        }
         if (modalController.containsNavigator(params.getNavigatorId())) {
             modalController.popToRoot(params);
         } else {
@@ -287,6 +296,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     void newStack(ScreenParams params) {
+        if (params == null) {
+            return;
+        }
         if (modalController.containsNavigator(params.getNavigatorId())) {
             modalController.newStack(params);
         } else {
@@ -298,10 +310,16 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         Screen previousScreen = layout.getCurrentScreen();
         NavigationApplication.instance.getEventEmitter().sendWillDisappearEvent(previousScreen.getScreenParams(), NavigationType.ShowModal);
         NavigationApplication.instance.getEventEmitter().sendDidDisappearEvent(previousScreen.getScreenParams(), NavigationType.ShowModal);
+        if (screenParams == null) {
+            return;
+        }
         modalController.showModal(screenParams);
     }
 
     void dismissTopModal(ScreenParams params) {
+        if (params == null) {
+            return;
+        }
         modalController.dismissTopModal(params);
     }
 
@@ -310,6 +328,9 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
     }
 
     public void showLightBox(LightBoxParams params) {
+        if (params == null) {
+            return;
+        }
         layout.showLightBox(params);
     }
 
