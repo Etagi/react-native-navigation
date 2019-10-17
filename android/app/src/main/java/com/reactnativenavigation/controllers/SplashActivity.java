@@ -27,7 +27,7 @@ public abstract class SplashActivity extends AppCompatActivity {
     public static boolean isResumed = false;
     public static SharedPreferences mSettings;
     public static final String MY_SETTINGS = "my_settings";
-    
+    boolean firstStartReactJS = true;
 
     public static void start(Activity activity) {
         Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
@@ -104,9 +104,12 @@ public abstract class SplashActivity extends AppCompatActivity {
             NavigationApplication.instance.getEventEmitter().sendAppLaunchedEvent();
             return;
         }
+        if (firstStartReactJS) {
+            firstStartReactJS = false;
+            // TODO I'm starting to think this entire flow is incorrect and should be done in Application
+            NavigationApplication.instance.startReactContextOnceInBackgroundAndExecuteJS();
+        }
 
-        // TODO I'm starting to think this entire flow is incorrect and should be done in Application
-        NavigationApplication.instance.startReactContextOnceInBackgroundAndExecuteJS();
     }
 
     @Override
