@@ -519,7 +519,7 @@ function navigatorSetTabBadge(navigator, params) {
     Controllers.TabBarControllerIOS(controllerID + '_tabs').setBadge({
       contentId: navigator.navigatorID,
       contentType: 'NavigationControllerIOS',
-      badge: params.badge,
+      badge: params.badge
     });
   }
 }
