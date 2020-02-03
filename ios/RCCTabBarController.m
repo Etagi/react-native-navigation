@@ -241,11 +241,17 @@
             else
             {
                 NSString *badgeColor = actionParams[@"badgeColor"];
+                NSString *badgeTextColor = actionParams[@"badgeTextColor"];
                 UIColor *color = badgeColor != (id)[NSNull null] ? [RCTConvert UIColor:badgeColor] : nil;
-                
+                UIColor *textColor = badgeTextColor != (id)[NSNull null] ? [RCTConvert UIColor:badgeTextColor] : nil;
+
                 if ([viewController.tabBarItem respondsToSelector:@selector(badgeColor)]) {
                     viewController.tabBarItem.badgeColor = color;
                 }
+                if (textColor != nil) {
+                    [viewController.tabBarItem setBadgeTextAttributes:@{NSForegroundColorAttributeName: textColor} forState:UIControlStateNormal];
+                }
+
                 viewController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%@", badge];
             }
         }
